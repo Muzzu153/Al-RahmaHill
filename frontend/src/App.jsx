@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import LoginModal from "./components/LoginModal";
 import SignupModal from "./components/SighupModal";
 import AppContextProvider from "./context/AppContext";
+import Footer from "./components/Footer";
 
 function Layout() {
   return (
@@ -11,6 +12,7 @@ function Layout() {
       <LoginModal />
       <SignupModal />
       <Outlet />
+      <Footer/>
     </>
   );
 }

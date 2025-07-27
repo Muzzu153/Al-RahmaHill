@@ -1,6 +1,5 @@
 import { createContext, useRef } from "react";
 import { doctors } from "../assets/assets";
-// import {}
 
 export const AppContext = createContext();
 

@@ -18,6 +18,4 @@ const doctorsSchema = new mongoose.Schema({
 
 const doctorModel = mongoose.models.doctor ||  mongoose.model('doctor', doctorsSchema)
 
-doctorsSchema.index({date: -1})
-
 export default doctorModel

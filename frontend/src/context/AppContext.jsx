@@ -1,9 +1,20 @@
-import { createContext, useRef } from "react";
+import { createContext, useRef, useState } from "react";
 import { doctors } from "../assets/assets";
+// import {}
 
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
+  const [utoken, setUToken] = useState(
+    localStorage.getItem("utoken") ? localStorage.getItem("utoken") : ""
+  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [appointmentsList, setAppointmentList] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isPaid, setIsPaid] = useState(false);
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const currencySymbol = "$";
 
   const loginDialogRef = useRef();
@@ -37,6 +48,17 @@ const AppContextProvider = (props) => {
     closeLogin,
     closeSignup,
     closeAll,
+    backendUrl,
+    setIsLoggedIn,
+    isLoggedIn,
+    utoken,
+    setUToken,
+    user,
+    setUser,
+    appointmentsList,
+    setAppointmentList,
+    isPaid,
+    setIsPaid
   };
 
   return (

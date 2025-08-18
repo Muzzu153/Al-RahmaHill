@@ -8,6 +8,8 @@ import contact_image from "./contact_image.png";
 import about_image from "./about_image.png";
 import logo from "./logo.svg";
 import logo2 from "./logo2.svg";
+import mobile_menu_logo_footer from "./mobile_menu_logo_footer.svg"
+import mobile_menu_logo from "./mobile_menu_logo.svg"
 import dropdown_icon from "./dropdown_icon.svg";
 import menu_icon from "./menu_icon.svg";
 import cross_icon from "./cross_icon.png";
@@ -50,6 +52,8 @@ export const assets = {
   group_profiles3,
   logo,
   logo2,
+  mobile_menu_logo,
+  mobile_menu_logo_footer,
   chats_icon,
   verified_icon,
   info_icon,
@@ -66,6 +70,21 @@ export const assets = {
   razorpay_logo,
   leftScrollArrow,
   rightScrollArrow,
+  doc1,
+  doc2,
+  doc3,
+  doc4,
+  doc5,
+  doc6,
+  doc7,
+  doc8,
+  doc9,
+  doc10,
+  doc11,
+  doc12,
+  doc13,
+  doc14,
+  doc15,
 };
 
 export const specialityData = [
@@ -328,7 +347,7 @@ export const mockUser = {
       id: "app1",
       docId: "doc1",
       date: "2025-07-20",
-      time: "10:30 AM",
+      time: "afternoon",
       notes: "Routine heart check-up",
     },
     {
@@ -336,14 +355,6 @@ export const mockUser = {
       docId: "doc5",
       date: "2025-07-25",
       time: "02:00 PM",
-      notes: "Skin rash follow-up",
-    },
-
-    {
-      id: "app5",
-      docId: "doc3",
-      date: "2025-08-5",
-      time: "04:30 PM",
       notes: "Skin rash follow-up",
     },
 
@@ -356,9 +367,17 @@ export const mockUser = {
     },
     {
       id: "app4",
-      docId: "doc8",
-      date: "2025-06-22",
-      time: "04:00 PM",
+      docId: "doc3",
+      date: "2025-08-5",
+      time: "04:30 PM",
+      notes: "Skin rash follow-up",
+    },
+
+    {
+      id: "app5",
+      docId: "doc12",
+      date: "2025-08-29",
+      time: "09:00 PM",
       notes: "Ear pain treatment",
     },
   ],

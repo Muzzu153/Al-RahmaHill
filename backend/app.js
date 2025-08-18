@@ -13,11 +13,20 @@ const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
-app.use(express.json())
+app.use(express.json());
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5174",
+      "http://localhost:5175",
+      "https://al-rahma-hill.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 // api endpoints
 app.use("/api/admin", adminRouter);
@@ -27,11 +36,11 @@ app.get("/", (req, res) => {
   res.send("API WORKING ");
 });
 
-// doctor api 
+// doctor api
 app.use("/api", doctorRoute);
 
-// users api 
-app.use("/api/user", userRoute)
-app.use("/api/user", appointmentRoute)
+// users api
+app.use("/api/user", userRoute);
+app.use("/api/user", appointmentRoute);
 
 app.listen(port, () => console.log("server started: ", port));

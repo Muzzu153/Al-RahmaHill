@@ -70,4 +70,19 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { userSignup, generateJwtForUser, loginUser };
+const getUserOnRefresh = async (req, res) => {
+  const userId = req.user.userId;
+  try {
+    const user = await userModel.findById(userId).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({
+      success: true,
+      user: user,
+    });
+  } catch (err) {
+    res.status(401).json({ message: "Invalid or expired token" });
+  }
+};
+
+export { userSignup, generateJwtForUser, loginUser, getUserOnRefresh };

@@ -130,7 +130,7 @@ const AdminSidebar2 = () => {
     setIsMobileMenuOpen(false);
     setIsProfileDropdownOpen(false);
     setShowLogoutConfirm(false);
-    navigate("/admin/login");
+    navigate("/");
   };
 
   // Lock body scroll when mobile menu is open

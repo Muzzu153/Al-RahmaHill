@@ -15,7 +15,6 @@
     "axios": "^1.10.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.12",
-    "latest": "^0.2.0",
     "lucide-react": "^0.525.0",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
@@ -41,9 +40,5 @@
   "main": "eslint.config.js",
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "engines": {
-  "node": "22.x",
-  "npm": "10.x"
-}
+  "license": "ISC"
 }

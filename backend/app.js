@@ -24,7 +24,6 @@ app.use(
       "http://localhost:5175",
       "https://al-rahma-hill.vercel.app",
     ],
-    credentials: true,
   })
 );
 

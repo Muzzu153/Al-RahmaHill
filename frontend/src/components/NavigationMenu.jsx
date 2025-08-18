@@ -124,7 +124,7 @@ const NavigationMenu = ({
         <div className="pt-4 mt-4 border-t border-gray-200">
           <button
             onClick={() => {
-              navigate("/doctors2");
+              navigate("/doctors");
               onItemClick?.({ id: "book", label: "Book Appointment" });
             }}
             className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#1F4E79] to-blue-600 text-white rounded-lg hover:from-[#1a3f66] hover:to-blue-700 transition-all duration-200 shadow-md"
@@ -196,7 +196,7 @@ const QuickActions = ({ className = "" }) => {
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <button
-        onClick={() => navigate("/doctors2")}
+        onClick={() => navigate("/doctors")}
         className="flex items-center gap-2 px-4 py-2 bg-[#1F4E79] lg:hidden xl:flex text-white rounded-lg hover:bg-[#1a3f66] transition-colors duration-200 font-medium"
       >
         <Calendar className="w-4 h-4" />

@@ -59,7 +59,7 @@ const Footer = ({ className = "" }) => {
             {/* Logo/Brand */}
             <div className="flex flex-row items-center gap-1 mb-6">
               <div>
-                <img src={assets.mobile_menu_logo} className="w-15" alt="" />
+                <img src={assets.mobile_menu_logo_footer} className="w-15" alt="" />
               </div>
               <span className="self-center text-3xl">Al RahmaHill</span>
             </div>

@@ -8,9 +8,10 @@ import Home from "./pages/Home";
 import Doctors from "./pages/Doctors";
 import MyAppointments from "./pages/MyAppointments";
 import MyProfile from "./pages/MyProfile.jsx";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 import Appointment from "./pages/Appointment";
+import AboutUsPage from "./pages/About";
+import ContactUsPage from "./pages/Contact";
+import Services from "./pages/Services.jsx";
 
 let route = createBrowserRouter([
   {
@@ -19,11 +20,12 @@ let route = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "home", element: <Home /> },
-      { path: "about", element: <About /> },
-      { path: "contact", element: <Contact /> },
+      { path: "about", element: <AboutUsPage /> },
+      { path: "contact", element: <ContactUsPage /> },
       { path: "my-appointments", element: <MyAppointments /> },
       { path: "my-profile", element: <MyProfile /> },
       { path: "appointments/:docId", element: <Appointment /> },
+      {path: "services", element: <Services/>},
       {
         path: "doctors",
         element: <Doctors />,

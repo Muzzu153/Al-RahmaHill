@@ -26,10 +26,11 @@ import {
   Settings,
   LogOut,
   Eye,
-  EyeOff
+  EyeOff,
 } from "lucide-react";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
 
 // Mock user data (you'd get this from your context/API)
 const mockUser = {
@@ -43,13 +44,13 @@ const mockUser = {
   emergencyContact: {
     name: "Jane Doe",
     relationship: "Spouse",
-    phone: "+1 (555) 987-6543"
+    phone: "+1 (555) 987-6543",
   },
   allergies: ["Penicillin", "Shellfish"],
   medicalConditions: ["Hypertension", "Type 2 Diabetes"],
   currentMedications: [
     { name: "Lisinopril", dosage: "10mg", frequency: "Once daily" },
-    { name: "Metformin", dosage: "500mg", frequency: "Twice daily" }
+    { name: "Metformin", dosage: "500mg", frequency: "Twice daily" },
   ],
   appointments: [
     {
@@ -59,7 +60,7 @@ const mockUser = {
       date: "2025-08-15",
       time: "10:00 AM",
       status: "upcoming",
-      type: "Follow-up"
+      type: "Follow-up",
     },
     {
       id: 2,
@@ -68,28 +69,28 @@ const mockUser = {
       date: "2025-07-20",
       time: "2:00 PM",
       status: "completed",
-      type: "Check-up"
-    }
+      type: "Check-up",
+    },
   ],
   healthMetrics: {
     lastCheckup: "2025-07-20",
     bmi: "24.5",
     bloodPressure: "120/80",
-    lastBloodWork: "2025-06-15"
-  }
+    lastBloodWork: "2025-06-15",
+  },
 };
 
 const MyProfile = () => {
   // const [user, setUser] = useState(null);
-  const {user, setUser} = useContext(AppContext)
+  const { user, setUser } = useContext(AppContext);
   const [editing, setEditing] = useState(null);
   const [formData, setFormData] = useState(null);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState("overview");
   const [showSensitiveInfo, setShowSensitiveInfo] = useState(false);
 
-  useEffect(() => {
-    setUser(mockUser);
-  }, []);
+  // useEffect(() => {
+  //   setUser(user);
+  // }, []);
 
   const startEdit = (section) => {
     setEditing(section);
@@ -102,17 +103,19 @@ const MyProfile = () => {
   };
 
   const saveEdit = (section) => {
-    if (section === 'basicInfo') {
-      setUser(prev => ({ ...prev, ...formData }));
+    if (section === "basicInfo") {
+      setUser((prev) => ({ ...prev, ...formData }));
     } else {
-      setUser(prev => ({ ...prev, [section]: formData }));
+      setUser((prev) => ({ ...prev, [section]: formData }));
     }
     setEditing(null);
     setFormData(null);
   };
 
-  const upcomingAppointments = user?.appointments?.filter(apt => apt.status === 'upcoming') || [];
-  const pastAppointments = user?.appointments?.filter(apt => apt.status === 'completed') || [];
+  const upcomingAppointments =
+    user?.appointments?.filter((apt) => apt.status === "upcoming") || [];
+  const pastAppointments =
+    user?.appointments?.filter((apt) => apt.status === "completed") || [];
 
   if (!user) {
     return (
@@ -151,9 +154,16 @@ const MyProfile = () => {
                 <div className="relative inline-block">
                   <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold mb-4 mx-auto">
                     {user?.profileImage ? (
-                      <img src={user?.profileImage} alt="Profile" className="w-full h-full rounded-full object-cover" />
+                      <img
+                        src={user?.profileImage}
+                        alt="Profile"
+                        className="w-full h-full rounded-full object-cover"
+                      />
                     ) : (
-                      user?.name.split(' ').map(n => n[0]).join('')
+                      user?.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
                     )}
                   </div>
                   <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
@@ -197,7 +207,9 @@ const MyProfile = () => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Active Medications</span>
-                    <span className="font-medium">{user?.currentMedications?.length}</span>
+                    <span className="font-medium">
+                      {user?.currentMedications?.length}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -205,7 +217,7 @@ const MyProfile = () => {
               {/* Action Buttons */}
               <div className="p-6 pt-0 space-y-3">
                 <button
-                  onClick={() => startEdit('basicInfo')}
+                  onClick={() => startEdit("basicInfo")}
                   className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#1F4E79] text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Edit3 className="w-4 h-4" />
@@ -226,10 +238,14 @@ const MyProfile = () => {
               <div className="border-b border-gray-200">
                 <nav className="flex space-x-8 px-6">
                   {[
-                    { id: 'overview', label: 'Overview', icon: User },
-                    { id: 'medical', label: 'Medical Info', icon: Heart },
-                    { id: 'appointments', label: 'Appointments', icon: Calendar },
-                    { id: 'medications', label: 'Medications', icon: Pill }
+                    { id: "overview", label: "Overview", icon: User },
+                    { id: "medical", label: "Medical Info", icon: Heart },
+                    {
+                      id: "appointments",
+                      label: "Appointments",
+                      icon: Calendar,
+                    },
+                    { id: "medications", label: "Medications", icon: Pill },
                   ].map((tab) => {
                     const Icon = tab.icon;
                     return (
@@ -238,8 +254,8 @@ const MyProfile = () => {
                         onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                           activeTab === tab.id
-                            ? 'border-[#1F4E79] text-[#1F4E79]'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                            ? "border-[#1F4E79] text-[#1F4E79]"
+                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                         }`}
                       >
                         <Icon className="w-4 h-4" />
@@ -253,8 +269,8 @@ const MyProfile = () => {
 
             {/* Tab Content */}
             <div className="space-y-6">
-              {activeTab === 'overview' && <OverviewTab user={user} />}
-              {activeTab === 'medical' && (
+              {activeTab === "overview" && <OverviewTab user={user} />}
+              {activeTab === "medical" && (
                 <MedicalTab
                   user={user}
                   editing={editing}
@@ -265,8 +281,8 @@ const MyProfile = () => {
                   setFormData={setFormData}
                 />
               )}
-              {activeTab === 'appointments' && <AppointmentsTab user={user} />}
-              {activeTab === 'medications' && (
+              {activeTab === "appointments" && <AppointmentsTab user={user} />}
+              {activeTab === "medications" && (
                 <MedicationsTab
                   user={user}
                   editing={editing}
@@ -280,12 +296,12 @@ const MyProfile = () => {
             </div>
 
             {/* Basic Info Edit Modal */}
-            {editing === 'basicInfo' && (
+            {editing === "basicInfo" && (
               <BasicInfoModal
                 user={user}
                 formData={formData}
                 setFormData={setFormData}
-                onSave={() => saveEdit('basicInfo')}
+                onSave={() => saveEdit("basicInfo")}
                 onCancel={cancelEdit}
               />
             )}
@@ -309,7 +325,9 @@ const OverviewTab = ({ user }) => (
           </div>
         </div>
         <p className="text-2xl font-bold text-green-600">Good</p>
-        <p className="text-sm text-gray-600">Last updated: {user?.healthMetrics?.lastCheckup}</p>
+        <p className="text-sm text-gray-600">
+          Last updated: {user?.healthMetrics?.lastCheckup}
+        </p>
       </div>
 
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
@@ -330,7 +348,9 @@ const OverviewTab = ({ user }) => (
             <Pill className="w-5 h-5 text-purple-600" />
           </div>
         </div>
-        <p className="text-2xl font-bold text-gray-900">{user?.currentMedications?.length}</p>
+        <p className="text-2xl font-bold text-gray-900">
+          {user?.currentMedications?.length}
+        </p>
         <p className="text-sm text-gray-600">Currently prescribed</p>
       </div>
     </div>
@@ -346,8 +366,12 @@ const OverviewTab = ({ user }) => (
             <CheckCircle className="w-4 h-4 text-green-600" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">Appointment completed</p>
-            <p className="text-sm text-gray-600">Dr. Michael Chen - General Medicine</p>
+            <p className="text-sm font-medium text-gray-900">
+              Appointment completed
+            </p>
+            <p className="text-sm text-gray-600">
+              Dr. Michael Chen - General Medicine
+            </p>
             <p className="text-xs text-gray-500">July 20, 2025</p>
           </div>
         </div>
@@ -356,8 +380,12 @@ const OverviewTab = ({ user }) => (
             <FileText className="w-4 h-4 text-blue-600" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">Lab results available</p>
-            <p className="text-sm text-gray-600">Blood work - All values normal</p>
+            <p className="text-sm font-medium text-gray-900">
+              Lab results available
+            </p>
+            <p className="text-sm text-gray-600">
+              Blood work - All values normal
+            </p>
             <p className="text-xs text-gray-500">July 18, 2025</p>
           </div>
         </div>
@@ -366,17 +394,25 @@ const OverviewTab = ({ user }) => (
   </div>
 );
 
-const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, setFormData }) => (
+const MedicalTab = ({
+  user,
+  editing,
+  formData,
+  startEdit,
+  saveEdit,
+  cancelEdit,
+  setFormData,
+}) => (
   <div className="space-y-6">
     {/* Allergies */}
     <SectionCard
       title="Allergies"
-      isEditing={editing === 'allergies'}
-      onEdit={() => startEdit('allergies')}
-      onSave={() => saveEdit('allergies')}
+      isEditing={editing === "allergies"}
+      onEdit={() => startEdit("allergies")}
+      onSave={() => saveEdit("allergies")}
       onCancel={cancelEdit}
     >
-      {editing === 'allergies' ? (
+      {editing === "allergies" ? (
         <ListEditor
           items={formData}
           onChange={setFormData}
@@ -386,7 +422,10 @@ const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, 
         <div className="flex flex-wrap gap-2">
           {user?.allergies?.length > 0 ? (
             user?.allergies?.map((allergy, idx) => (
-              <span key={idx} className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+              <span
+                key={idx}
+                className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm"
+              >
                 {allergy}
               </span>
             ))
@@ -400,12 +439,12 @@ const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, 
     {/* Medical Conditions */}
     <SectionCard
       title="Medical Conditions"
-      isEditing={editing === 'medicalConditions'}
-      onEdit={() => startEdit('medicalConditions')}
-      onSave={() => saveEdit('medicalConditions')}
+      isEditing={editing === "medicalConditions"}
+      onEdit={() => startEdit("medicalConditions")}
+      onSave={() => saveEdit("medicalConditions")}
       onCancel={cancelEdit}
     >
-      {editing === 'medicalConditions' ? (
+      {editing === "medicalConditions" ? (
         <ListEditor
           items={formData}
           onChange={setFormData}
@@ -421,7 +460,9 @@ const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, 
               </div>
             ))
           ) : (
-            <p className="text-gray-500 italic">No medical conditions recorded</p>
+            <p className="text-gray-500 italic">
+              No medical conditions recorded
+            </p>
           )}
         </div>
       )}
@@ -430,37 +471,52 @@ const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, 
     {/* Emergency Contact */}
     <SectionCard
       title="Emergency Contact"
-      isEditing={editing === 'emergencyContact'}
-      onEdit={() => startEdit('emergencyContact')}
-      onSave={() => saveEdit('emergencyContact')}
+      isEditing={editing === "emergencyContact"}
+      onEdit={() => startEdit("emergencyContact")}
+      onSave={() => saveEdit("emergencyContact")}
       onCancel={cancelEdit}
     >
-      {editing === 'emergencyContact' ? (
+      {editing === "emergencyContact" ? (
         <div className="grid md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
             <input
               type="text"
-              value={formData?.name || ''}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              value={formData?.name || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, name: e.target.value }))
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1F4E79] focus:border-transparent"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Relationship</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Relationship
+            </label>
             <input
               type="text"
-              value={formData?.relationship || ''}
-              onChange={(e) => setFormData(prev => ({ ...prev, relationship: e.target.value }))}
+              value={formData?.relationship || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  relationship: e.target.value,
+                }))
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1F4E79] focus:border-transparent"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Phone
+            </label>
             <input
               type="tel"
-              value={formData?.phone || ''}
-              onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+              value={formData?.phone || ""}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, phone: e.target.value }))
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1F4E79] focus:border-transparent"
             />
           </div>
@@ -474,7 +530,9 @@ const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, 
             </div>
             <div>
               <span className="text-gray-600">Relationship:</span>
-              <p className="font-medium">{user?.emergencyContact?.relationship}</p>
+              <p className="font-medium">
+                {user?.emergencyContact?.relationship}
+              </p>
             </div>
             <div>
               <span className="text-gray-600">Phone:</span>
@@ -488,15 +546,47 @@ const MedicalTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, 
 );
 
 const AppointmentsTab = ({ user }) => {
-  const upcomingAppointments = user?.appointments?.filter(apt => apt.status === 'upcoming');
-  const pastAppointments = user?.appointments?.filter(apt => apt.status === 'completed');
+  const { backendUrl, utoken } = useContext(AppContext);
+  const [appointmentsList, setAppointmentList] = useState([])
+  useEffect(() => {
+    const getAppointmentsList = async () => {
+      try {
+        const { data } = await axios.get(
+          `${backendUrl}/api/user/my-appointments`,
+          {
+            headers: {
+              Authorization: `Bearer ${utoken}`, // or 'utoken': token
+            },
+          }
+        );
+        if (data.success) {
+          console.log(data.appointmentList);
+          setAppointmentList(data.mapped);
+        }
+      } catch (error) {
+        console.error(
+          "Error fetching appointments:",
+          error.response?.data || error.message
+        );
+      }
+    };
+    getAppointmentsList();
+  }, []);
+  const upcomingAppointments = appointmentsList?.filter(
+    (apt) => apt.status === "booked"
+  );
+  const pastAppointments = user?.appointments?.filter(
+    (apt) => apt.status === "completed"
+  );
 
   return (
     <div className="space-y-6">
       {/* Upcoming Appointments */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900">Upcoming Appointments</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            Upcoming Appointments
+          </h3>
           <button className="px-4 py-2 bg-[#1F4E79] text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
             Book New Appointment
           </button>
@@ -505,11 +595,17 @@ const AppointmentsTab = ({ user }) => {
           {upcomingAppointments?.length > 0 ? (
             <div className="space-y-4">
               {upcomingAppointments.map((appointment) => (
-                <AppointmentCard key={appointment?.id} appointment={appointment} isUpcoming={true} />
+                <AppointmentCard
+                  key={appointment?.id}
+                  appointment={appointment}
+                  isUpcoming={true}
+                />
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 italic text-center py-8">No upcoming appointments</p>
+            <p className="text-gray-500 italic text-center py-8">
+              No upcoming appointments
+            </p>
           )}
         </div>
       </div>
@@ -517,17 +613,25 @@ const AppointmentsTab = ({ user }) => {
       {/* Past Appointments */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">Past Appointments</h3>
+          <h3 className="text-lg font-semibold text-gray-900">
+            Past Appointments
+          </h3>
         </div>
         <div className="p-6">
           {pastAppointments?.length > 0 ? (
             <div className="space-y-4">
               {pastAppointments?.map((appointment) => (
-                <AppointmentCard key={appointment?.id} appointment={appointment} isUpcoming={false} />
+                <AppointmentCard
+                  key={appointment?.id}
+                  appointment={appointment}
+                  isUpcoming={false}
+                />
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 italic text-center py-8">No past appointments</p>
+            <p className="text-gray-500 italic text-center py-8">
+              No past appointments
+            </p>
           )}
         </div>
       </div>
@@ -535,16 +639,24 @@ const AppointmentsTab = ({ user }) => {
   );
 };
 
-const MedicationsTab = ({ user, editing, formData, startEdit, saveEdit, cancelEdit, setFormData }) => (
+const MedicationsTab = ({
+  user,
+  editing,
+  formData,
+  startEdit,
+  saveEdit,
+  cancelEdit,
+  setFormData,
+}) => (
   <div className="space-y-6">
     <SectionCard
       title="Current Medications"
-      isEditing={editing === 'currentMedications'}
-      onEdit={() => startEdit('currentMedications')}
-      onSave={() => saveEdit('currentMedications')}
+      isEditing={editing === "currentMedications"}
+      onEdit={() => startEdit("currentMedications")}
+      onSave={() => saveEdit("currentMedications")}
       onCancel={cancelEdit}
     >
-      {editing === 'currentMedications' ? (
+      {editing === "currentMedications" ? (
         <MedicationEditor medications={formData} onChange={setFormData} />
       ) : (
         <div className="space-y-4">
@@ -562,13 +674,17 @@ const MedicationsTab = ({ user, editing, formData, startEdit, saveEdit, cancelEd
                   </div>
                   <div>
                     <span className="text-sm text-gray-600">Frequency</span>
-                    <p className="font-medium text-gray-700">{med?.frequency}</p>
+                    <p className="font-medium text-gray-700">
+                      {med?.frequency}
+                    </p>
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-gray-500 italic text-center py-8">No current medications</p>
+            <p className="text-gray-500 italic text-center py-8">
+              No current medications
+            </p>
           )}
         </div>
       )}
@@ -577,7 +693,14 @@ const MedicationsTab = ({ user, editing, formData, startEdit, saveEdit, cancelEd
 );
 
 // Helper Components
-const SectionCard = ({ title, isEditing, onEdit, onSave, onCancel, children }) => (
+const SectionCard = ({
+  title,
+  isEditing,
+  onEdit,
+  onSave,
+  onCancel,
+  children,
+}) => (
   <div className="bg-white rounded-xl shadow-sm border border-gray-200">
     <div className="p-6 border-b border-gray-200 flex items-center justify-between">
       <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
@@ -616,9 +739,11 @@ const AppointmentCard = ({ appointment, isUpcoming }) => (
   <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-gray-300 transition-colors">
     <div className="flex items-center justify-between">
       <div className="flex items-start gap-4">
-        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-          isUpcoming ? 'bg-blue-100' : 'bg-green-100'
-        }`}>
+        <div
+          className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+            isUpcoming ? "bg-blue-100" : "bg-green-100"
+          }`}
+        >
           {isUpcoming ? (
             <Calendar className="w-6 h-6 text-blue-600" />
           ) : (
@@ -626,19 +751,25 @@ const AppointmentCard = ({ appointment, isUpcoming }) => (
           )}
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900">{appointment?.doctorName}</h4>
+          <h4 className="font-semibold text-gray-900">
+            {appointment?.docId.name}
+          </h4>
           <p className="text-sm text-gray-600">{appointment?.specialty}</p>
           <p className="text-sm text-gray-500">{appointment?.type}</p>
         </div>
       </div>
       <div className="text-right">
-        <p className="font-medium text-gray-900">{new Date(appointment?.date).toLocaleDateString()}</p>
+        <p className="font-medium text-gray-900">
+          {new Date(appointment?.date).toLocaleDateString()}
+        </p>
         <p className="text-sm text-gray-600">{appointment?.time}</p>
-        <span className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium ${
-          isUpcoming 
-            ? 'bg-blue-100 text-blue-800' 
-            : 'bg-green-100 text-green-800'
-        }`}>
+        <span
+          className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium ${
+            isUpcoming
+              ? "bg-blue-100 text-blue-800"
+              : "bg-green-100 text-green-800"
+          }`}
+        >
           {appointment?.status}
         </span>
       </div>
@@ -670,7 +801,7 @@ const ListEditor = ({ items, onChange, placeholder }) => (
       </div>
     ))}
     <button
-      onClick={() => onChange([...items, ''])}
+      onClick={() => onChange([...items, ""])}
       className="flex items-center gap-2 px-3 py-2 text-[#1F4E79] hover:bg-blue-50 rounded-lg transition-colors text-sm"
     >
       <Plus className="w-4 h-4" />
@@ -682,12 +813,17 @@ const ListEditor = ({ items, onChange, placeholder }) => (
 const MedicationEditor = ({ medications, onChange }) => (
   <div className="space-y-4">
     {medications?.map((med, idx) => (
-      <div key={idx} className="grid md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border">
+      <div
+        key={idx}
+        className="grid md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border"
+      >
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Name
+          </label>
           <input
             type="text"
-            value={med?.name || ''}
+            value={med?.name || ""}
             onChange={(e) => {
               const newMeds = [...medications];
               newMeds[idx] = { ...newMeds[idx], name: e.target.value };
@@ -698,10 +834,12 @@ const MedicationEditor = ({ medications, onChange }) => (
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Dosage</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Dosage
+          </label>
           <input
             type="text"
-            value={med?.dosage || ''}
+            value={med?.dosage || ""}
             onChange={(e) => {
               const newMeds = [...medications];
               newMeds[idx] = { ...newMeds[idx], dosage: e.target.value };
@@ -712,10 +850,12 @@ const MedicationEditor = ({ medications, onChange }) => (
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Frequency</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Frequency
+          </label>
           <input
             type="text"
-            value={med?.frequency || ''}
+            value={med?.frequency || ""}
             onChange={(e) => {
               const newMeds = [...medications];
               newMeds[idx] = { ...newMeds[idx], frequency: e.target.value };
@@ -736,7 +876,9 @@ const MedicationEditor = ({ medications, onChange }) => (
       </div>
     ))}
     <button
-      onClick={() => onChange([...medications, { name: '', dosage: '', frequency: '' }])}
+      onClick={() =>
+        onChange([...medications, { name: "", dosage: "", frequency: "" }])
+      }
       className="flex items-center gap-2 px-4 py-2 text-[#1F4E79] hover:bg-blue-50 rounded-lg transition-colors text-sm border border-blue-200 hover:border-blue-300"
     >
       <Plus className="w-4 h-4" />
@@ -748,13 +890,18 @@ const MedicationEditor = ({ medications, onChange }) => (
 // Basic Info Modal Component
 const BasicInfoModal = ({ user, formData, setFormData, onSave, onCancel }) => {
   const fields = [
-    { key: 'name', label: 'Full Name', type: 'text', required: true },
-    { key: 'email', label: 'Email Address', type: 'email', required: true },
-    { key: 'phone', label: 'Phone Number', type: 'tel', required: true },
-    { key: 'dob', label: 'Date of Birth', type: 'date', required: true },
-    { key: 'bloodGroup', label: 'Blood Group', type: 'select', required: true, 
-      options: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] },
-    { key: 'address', label: 'Address', type: 'textarea', required: false }
+    { key: "name", label: "Full Name", type: "text", required: true },
+    { key: "email", label: "Email Address", type: "email", required: true },
+    { key: "phone", label: "Phone Number", type: "tel", required: true },
+    { key: "dob", label: "Date of Birth", type: "date", required: true },
+    {
+      key: "bloodGroup",
+      label: "Blood Group",
+      type: "select",
+      required: true,
+      options: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+    },
+    { key: "address", label: "Address", type: "textarea", required: false },
   ];
 
   return (
@@ -762,7 +909,9 @@ const BasicInfoModal = ({ user, formData, setFormData, onSave, onCancel }) => {
       <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-gray-900">Edit Basic Information</h3>
+            <h3 className="text-xl font-semibold text-gray-900">
+              Edit Basic Information
+            </h3>
             <button
               onClick={onCancel}
               className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
@@ -773,30 +922,52 @@ const BasicInfoModal = ({ user, formData, setFormData, onSave, onCancel }) => {
         </div>
 
         <div className="p-6">
-          <form onSubmit={(e) => { e.preventDefault(); onSave(); }} className="space-y-6">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSave();
+            }}
+            className="space-y-6"
+          >
             <div className="grid md:grid-cols-2 gap-4">
               {fields.map((field) => (
-                <div key={field.key} className={field.key === 'address' ? 'md:col-span-2' : ''}>
+                <div
+                  key={field.key}
+                  className={field.key === "address" ? "md:col-span-2" : ""}
+                >
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {field.label} {field.required && <span className="text-red-500">*</span>}
+                    {field.label}{" "}
+                    {field.required && <span className="text-red-500">*</span>}
                   </label>
-                  
-                  {field.type === 'select' ? (
+
+                  {field.type === "select" ? (
                     <select
-                      value={formData?.[field.key] || ''}
-                      onChange={(e) => setFormData(prev => ({ ...prev, [field.key]: e.target.value }))}
+                      value={formData?.[field.key] || ""}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          [field.key]: e.target.value,
+                        }))
+                      }
                       required={field.required}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1F4E79] focus:border-transparent"
                     >
                       <option value="">Select {field.label}</option>
-                      {field.options.map(option => (
-                        <option key={option} value={option}>{option}</option>
+                      {field.options.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
                       ))}
                     </select>
-                  ) : field.type === 'textarea' ? (
+                  ) : field.type === "textarea" ? (
                     <textarea
-                      value={formData?.[field.key] || ''}
-                      onChange={(e) => setFormData(prev => ({ ...prev, [field.key]: e.target.value }))}
+                      value={formData?.[field.key] || ""}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          [field.key]: e.target.value,
+                        }))
+                      }
                       required={field.required}
                       rows={3}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1F4E79] focus:border-transparent resize-vertical"
@@ -805,8 +976,13 @@ const BasicInfoModal = ({ user, formData, setFormData, onSave, onCancel }) => {
                   ) : (
                     <input
                       type={field.type}
-                      value={formData?.[field.key] || ''}
-                      onChange={(e) => setFormData(prev => ({ ...prev, [field.key]: e.target.value }))}
+                      value={formData?.[field.key] || ""}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          [field.key]: e.target.value,
+                        }))
+                      }
                       required={field.required}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1F4E79] focus:border-transparent"
                       placeholder={`Enter your ${field.label.toLowerCase()}`}
@@ -838,4 +1014,4 @@ const BasicInfoModal = ({ user, formData, setFormData, onSave, onCancel }) => {
   );
 };
 
-export default MyProfile
+export default MyProfile;

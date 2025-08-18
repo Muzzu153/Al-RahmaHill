@@ -1,12 +1,10 @@
 import { useState, useContext, useEffect } from "react";
-import { mockUser } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { ChevronDown, ChevronUp, Calendar, Clock, User } from "lucide-react";
-import AppointmentsList from "../components/AppoitmentCard2";
-import { VIEW_MODES } from "../components/AppoitmentCard2";
+import AppointmentsList from "../components/AppointmentCard";
+import { VIEW_MODES } from "../components/AppointmentCard";
 import axios from "axios";
-import { UserContext } from "../context/UserContext";
 
 const MyAppointments = () => {
   // Mock data - replace with your actual context and imports

@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #1F4E79;
+    --grid-cols-custom: repeat(auto-fill, minmax(200px, 1fr));
+    --breakpoint-xs: 548px;
+    --breakpoint-xxs: 448px;
+    --breakpoint-md-lg: 448px;
+
+}

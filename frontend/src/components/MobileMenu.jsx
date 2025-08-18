@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import { UserContext } from "../context/UserContext";
 import NavigationMenu from "./NavigationMenu";
 import { X, User, LogIn, LogOut, Settings, Bell } from "lucide-react";
+import { assets } from "../assets/assets";
 
 const user = {
   name: "user1",
@@ -137,14 +138,15 @@ return (
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-r from-[#1F4E79] to-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">H</span>
+            <div className="w-10 h-10  rounded-full flex items-center justify-center">
+              {/* <span className="text-white font-bold text-sm">H</span> */}
+              <img src={assets.mobile_menu_logo} alt="" />
             </div>
             <div>
               <h2 className="font-semibold text-gray-900 text-lg">
-                HealthCare
+                Al RahmaHill
               </h2>
-              <p className="text-xs text-gray-500">Medical Center</p>
+              {/* <p className="text-xs text-gray-500">Medical Center</p> */}
             </div>
           </div>
 

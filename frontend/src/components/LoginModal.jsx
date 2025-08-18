@@ -48,11 +48,8 @@ export default function LoginModal() {
 
   // ✅ Business Logic: Handle Login API
   const handleLogin = async (formData) => {
-    setLoading(true);
-    setError("");
-
     try {
-      console.log("Attempting login with:", formData);
+      console.log("🚀 Attempting login with:", { phone: formData.phone });
 
       const formDataToSend = {
         phone: formData.phone,
@@ -64,37 +61,47 @@ export default function LoginModal() {
         formDataToSend
       );
 
-      // ✅ Business Logic: Handle successful login
+      if (data.success && data.utoken) {
+        console.log("✅ Login successful");
 
-      // Store authentication token
-      if (data.success) {
-        setUToken(data.utoken);
+        // Store token in localStorage AND update state with skip validation
         localStorage.setItem("utoken", data.utoken);
-        setIsLoggedIn(!isLoggedIn);
-        toast.success("Logged-in successfully");
+        setUToken(data.utoken, true); // Skip immediate validation
+
+        // Set user data immediately from login response
+        if (data.user) {
+          setUser(data.user);
+          setIsLoggedIn(true);
+          console.log("👤 User set:", data.user.name);
+        }
+
+        // Close any open dialogs
         dialogRef.current?.reset();
         dialogRef.current.close();
-        setUser(data.user)
-        console.log("Login successful:", data.user.name);
+
+        toast.success("Logged in successfully!");
+
+        return { success: true, user: data.user };
       } else {
-        toast.error(data.message);
-        console.log(data.message);
+        const errorMessage = data.message || "Login failed";
+        toast.error(errorMessage);
+        return { success: false, error: errorMessage };
       }
     } catch (err) {
-      // ✅ Business Logic: Handle login errors
-      console.error("Login error:", err);
+      console.error("🚨 Login error:", err);
+
+      let errorMessage = "Login failed. Please try again.";
 
       if (err.response?.status === 401) {
-        setError("Invalid email or password");
+        errorMessage = "Invalid phone or password";
       } else if (err.response?.status === 400) {
-        setError(err.response.data.message || "Invalid input");
+        errorMessage = err.response.data.message || "Invalid input";
       } else if (err.code === "NETWORK_ERROR") {
-        setError("Network error. Please check your connection.");
-      } else {
-        setError("Login failed. Please try again.");
+        errorMessage = "Network error. Please check your connection.";
       }
-    } finally {
-      setLoading(false);
+
+      toast.error(errorMessage);
+      return { success: false, error: errorMessage };
     }
   };
 

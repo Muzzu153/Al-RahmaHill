@@ -5,7 +5,7 @@ import NavigationMenu, { QuickActions } from "./NavigationMenu";
 // import ProfileDropdown, { ProfileButton } from "./ProfileDropdown";
 import ProfileDropdown, { ProfileButton } from "./ProfileDropDown";
 import HamburgerButton from "./HamburgerButton";
-import MobileMenu2 from "./MobileMenu2";
+import MobileMenu from "./MobileMenu";
 import { LogIn, User } from "lucide-react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
@@ -124,7 +124,7 @@ const MobileNavigation = ({ className = "" }) => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <MobileMenu2
+      <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />

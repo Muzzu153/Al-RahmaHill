@@ -10,15 +10,6 @@ import {
 } from "lucide-react";
 import { AppContext } from "../context/AppContext";
 
-// const user = {
-//   name: "user1",
-//   email: "user@email",
-// };
-
-
-
-// const isLoggedIn = false;
-
 const ProfileDropdown = ({ isOpen, onClose, className = "" }) => {
   //   const { logout } = useContext(UserContext);
   const navigate = useNavigate();
@@ -117,14 +108,14 @@ const ProfileDropdown = ({ isOpen, onClose, className = "" }) => {
       <div className="px-4 py-3 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-r from-[#1F4E79] to-blue-600 rounded-full flex items-center justify-center text-white font-medium">
-            {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+            {user?.name.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">
-              {user?.name || "User"}
+              {user?.name }
             </p>
             <p className="text-xs text-gray-500 truncate">
-              {user?.email || "user@example.com"}
+              {user?.email}
             </p>
           </div>
         </div>

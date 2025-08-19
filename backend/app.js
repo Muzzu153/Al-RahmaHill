@@ -23,6 +23,7 @@ app.use(
       "http://localhost:5174",
       "http://localhost:5175",
       "https://al-rahma-hill.vercel.app",
+      "https://al-rahma-hill.netlify.app",
       "https://al-rahma-hill-fa46mrlsw-syed-muzaffer-alis-projects.vercel.app",
     ],
   })

@@ -14,6 +14,8 @@ import DoctorsList from "./pages/Admin/DoctorsList.jsx";
 
 // Add error boundary component for better error handling
 import { Component } from "react";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ProtectedLoader from "./components/ProtectedRoute.jsx";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Router Error:', error, errorInfo);
+    console.error("Router Error:", error, errorInfo);
   }
 
   render() {
@@ -35,8 +37,8 @@ class ErrorBoundary extends Component {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-xl font-semibold mb-4">Something went wrong</h2>
-            <button 
-              onClick={() => window.location.href = '/login'} 
+            <button
+              onClick={() => (window.location.href = "/login")}
               className="px-4 py-2 bg-blue-600 text-white rounded"
             >
               Go to Login
@@ -55,7 +57,6 @@ const route = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <div>Something went wrong! <a href="/login">Go to Login</a></div>,
     children: [
       {
         index: true,
@@ -65,22 +66,29 @@ const route = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
+
       {
-        path: "admin-dashboard",
-        element: <Dashboard />,
+        element: <ProtectedLoader />,
+        children: [
+          {
+            path: "admin-dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "all-appointments",
+            element: <AllAppointments />,
+          },
+          {
+            path: "add-doctor",
+            element: <AddDoctor />,
+          },
+          {
+            path: "doctors-list",
+            element: <DoctorsList />,
+          },
+        ],
       },
-      {
-        path: "all-appointments",
-        element: <AllAppointments />,
-      },
-      {
-        path: "add-doctor",
-        element: <AddDoctor />,
-      },
-      {
-        path: "doctors-list",
-        element: <DoctorsList />,
-      },
+
       {
         // Catch-all route for 404s
         path: "*",

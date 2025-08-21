@@ -59,6 +59,7 @@ const ProfileDropdown = ({ isOpen, onClose, className = "" }) => {
 
   const handleLogout = () => {
     // logout();
+    navigate("/")
     onClose();
     setUToken(localStorage.removeItem("utoken"))
   };

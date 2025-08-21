@@ -1,0 +1,18 @@
+# Netlify _redirects file
+# This should be placed in your public folder
+
+# Redirect all routes to index.html for client-side routing
+/*    /index.html   200
+
+# Optional: Redirect specific admin routes with better SEO
+/admin-dashboard    /index.html   200
+/all-appointments   /index.html   200
+/add-doctor        /index.html   200
+/doctors-list      /index.html   200
+/login            /index.html   200
+
+# Optional: API routes (if you have backend API calls)
+/api/*  https://your-backend-url.com/api/:splat  200
+
+# Optional: Handle 404s
+/404   /index.html   404

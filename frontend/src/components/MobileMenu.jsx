@@ -13,7 +13,7 @@ const user = {
 const isLoggedIn = false;
 
 const MobileMenu = ({ isOpen, onClose, className = "" }) => {
-//   const { logout } = useContext(UserContext);
+  //   const { logout } = useContext(UserContext);
   const navigate = useNavigate();
   const menuRef = useRef(null);
   const backdropRef = useRef(null);
@@ -112,7 +112,7 @@ const MobileMenu = ({ isOpen, onClose, className = "" }) => {
     onClose();
   };
 
-return (
+  return (
     <>
       {/* Backdrop */}
       <div
@@ -168,86 +168,6 @@ return (
               onItemClick={handleNavItemClick}
               className="px-2"
             />
-          </div>
-
-          {/* Profile Section - Fixed at bottom */}
-          <div className="border-t border-gray-200 bg-gray-50">
-            {isLoggedIn ? (
-              <div className="p-4 space-y-3">
-                {/* User Info */}
-                <div className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#1F4E79] to-blue-600 rounded-full flex items-center justify-center text-white font-medium">
-                    {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {user?.name || "User"}
-                    </p>
-                    <p className="text-xs text-gray-500 truncate">
-                      {user?.email || "user@example.com"}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Profile Actions */}
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => handleNavigation("/my-profile")}
-                    className="flex items-center gap-2 p-3 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-200 text-sm"
-                  >
-                    <User className="w-4 h-4 text-gray-500" />
-                    <span className="text-gray-700">Profile</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleNavigation("/settings")}
-                    className="flex items-center gap-2 p-3 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-200 text-sm"
-                  >
-                    <Settings className="w-4 h-4 text-gray-500" />
-                    <span className="text-gray-700">Settings</span>
-                  </button>
-                </div>
-
-                {/* Logout Button */}
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center justify-center gap-2 p-3 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors duration-200 font-medium"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>Logout</span>
-                </button>
-              </div>
-            ) : (
-              /* Login Section for Non-authenticated Users */
-              <div className="p-4 space-y-3">
-                <div className="text-center py-4">
-                  <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <User className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Sign in to access your appointments and profile
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 gap-2">
-                  <button
-                    onClick={() => handleNavigation("/login")}
-                    className="flex items-center justify-center gap-2 p-3 bg-[#1F4E79] text-white rounded-lg hover:bg-[#1a3f66] transition-colors duration-200 font-medium"
-                  >
-                    <LogIn className="w-4 h-4" />
-                    <span>Login</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleNavigation("/register")}
-                    className="flex items-center justify-center gap-2 p-3 bg-white border border-[#1F4E79] text-[#1F4E79] rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium"
-                  >
-                    <User className="w-4 h-4" />
-                    <span>Register</span>
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 

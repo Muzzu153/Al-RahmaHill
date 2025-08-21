@@ -1,4 +1,3 @@
-
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -12,6 +11,10 @@ import Appointment from "./pages/Appointment";
 import AboutUsPage from "./pages/About";
 import ContactUsPage from "./pages/Contact";
 import Services from "./pages/Services.jsx";
+import {
+  ProtectedLoader,
+  ProtectedRoute,
+} from "./components/ProtectedLoader.jsx";
 
 let route = createBrowserRouter([
   {
@@ -22,10 +25,15 @@ let route = createBrowserRouter([
       { path: "home", element: <Home /> },
       { path: "about", element: <AboutUsPage /> },
       { path: "contact", element: <ContactUsPage /> },
-      { path: "my-appointments", element: <MyAppointments /> },
-      { path: "my-profile", element: <MyProfile /> },
+      {
+        element: <ProtectedLoader />,
+        children: [
+          { path: "my-appointments", element: <MyAppointments /> },
+          { path: "my-profile", element: <MyProfile /> },
+        ],
+      },
       { path: "appointments/:docId", element: <Appointment /> },
-      {path: "services", element: <Services/>},
+      { path: "services", element: <Services /> },
       {
         path: "doctors",
         element: <Doctors />,
@@ -41,7 +49,7 @@ let route = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <div className="mx-4 sm:mx-[10%]">
-        <RouterProvider router={route} />
+      <RouterProvider router={route} />
     </div>
   </StrictMode>
 );

@@ -55,7 +55,7 @@ You need to have Node.js and npm installed on your machine.
 
 ### Installation & Setup
 
-1.  **Create a new repository at github.com.(this is your repository)**
+1.  **Create a new repository at github.com.** (this is your repository)
 
     Give it the same name as the this repository.
 

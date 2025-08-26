@@ -57,26 +57,36 @@ You need to have Node.js and npm installed on your machine.
 
 1.  **Clone the repository:**
     Create a new repository at github.com.(this is your repository)
+
     Give it the same name as the this repository.
+
     Don't initialize it with a README, .gitignore, or license.
-    Clone this repository to your local machine. (if you haven't done so already)
+
+2.    **Clone this repository to your local machine.** (if you haven't done so already)
+
     ```sh
     git clone https://github.com/Muzzu153/Al-RahmaHill.git
     ```
-    Rename the local repository's current 'origin' to 'upstream'.
+
+    3. **Rename the local repository's current 'origin' to 'upstream'.**
+
     ```sh
     git remote rename origin upstream
     ```
-    Give the local repository an 'origin' that points to your repository.
-    ```sh
-git remote add origin https://github.com/your-account/Al-RahmaHill.git
-    ```
-    Push the local repository to your repository on github.
-    ```sh
-git push origin main
-```
 
-2.  **Install Backend Dependencies:**
+    4. **Give the local repository an 'origin' that points to your repository.**
+
+    ```sh
+    git remote add origin https://github.com/your-account/Al-RahmaHill,git
+    ```
+
+5. **Push the local repository to your repository on github.**
+
+    ```sh
+    git push origin main
+    ```
+
+6.  **Install Backend Dependencies:**
     Navigate to the backend folder and install the necessary packages.
 
     ```sh
@@ -84,7 +94,7 @@ git push origin main
     npm install
     ```
 
-3.  **Install Frontend Dependencies:**
+7.  **Install Frontend Dependencies:**
     Navigate to the frontend folder and install the necessary packages.
 
     ```sh
@@ -92,7 +102,7 @@ git push origin main
     npm install
     ```
 
-4.  **Set up Environment Variables:**
+8.  **Set up Environment Variables:**
     Create a `.env` file in the `backend` directory. Add the following environment variables. You will need to create your own MongoDB connection string, JWT secret, and Cloudinary credentials.
 
     ```env

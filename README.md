@@ -60,17 +60,21 @@ You need to have Node.js and npm installed on your machine.
     Give it the same name as the this repository.
     Don't initialize it with a README, .gitignore, or license.
     Clone this repository to your local machine. (if you haven't done so already)
-    `sh
+    ```sh
     git clone https://github.com/Muzzu153/Al-RahmaHill.git
-    `
+    ```
     Rename the local repository's current 'origin' to 'upstream'.
-    `sh
+    ```sh
     git remote rename origin upstream
-    `
+    ```
     Give the local repository an 'origin' that points to your repository.
-    `sh
-git remote add origin https://github.com/your-account/your-repository.git
-    `
+    ```sh
+git remote add origin https://github.com/your-account/Al-RahmaHill.git
+    ```
+    Push the local repository to your repository on github.
+    ```sh
+git push origin main
+```
 
 2.  **Install Backend Dependencies:**
     Navigate to the backend folder and install the necessary packages.

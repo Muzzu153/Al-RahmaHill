@@ -108,12 +108,17 @@ You need to have Node.js and npm installed on your machine.
     ```env
     # .env file in /backend
 
-    PORT=5000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_super_secret_jwt_key
-    CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-    CLOUDINARY_API_KEY=your_cloudinary_api_key
-    CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+    MONGODB_URI = 'your_mongodb_connection_string'
+    PORT = 4000
+    SALT_ROUNDS = 10
+    USER_JWT_SECRET= "your_super_secret_jwt_key"
+    CLOUDINARY_NAME = 'your_cloudinary_cloud_name' 
+    CLOUDINARY_API_KEY = 'your_cloudinary_api_key'
+    CLOUDINARY_SECRET_KEY = 'your_cloudinary_api_secret'
+    
+    
+    # .env file in /frontend
+    VITE_BACKEND_URL = http://localhost:4000
     ```
 
 ### Running the Application
@@ -122,17 +127,17 @@ You need to have Node.js and npm installed on your machine.
     From the `backend` directory, run:
 
     ```sh
-    npm start
+    npm run dev
     ```
 
-    The server will start on `http://localhost:5000` (or the port you specified).
+    The server will start on `http://localhost:4000` (or the port you specified).
 
 2.  **Start the Frontend Development Server:**
     From the `frontend` directory, run:
     ```sh
-    npm start
+    npm run dev
     ```
-    The application will open in your browser at `http://localhost:3000`.
+    The application will open in your browser at `http://localhost:5175` (or the port you specified).
 
 ---
 

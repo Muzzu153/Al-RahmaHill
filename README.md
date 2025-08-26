@@ -68,13 +68,13 @@ You need to have Node.js and npm installed on your machine.
     git clone https://github.com/Muzzu153/Al-RahmaHill.git
     ```
 
-    3. **Rename the local repository's current 'origin' to 'upstream'.**
+3.  **Rename the local repository's current 'origin' to 'upstream'**
 
     ```sh
     git remote rename origin upstream
     ```
 
-    4. **Give the local repository an 'origin' that points to your repository.**
+4.  **Give the local repository an 'origin' that points to your repository.**
 
     ```sh
     git remote add origin https://github.com/your-account/Al-RahmaHill,git

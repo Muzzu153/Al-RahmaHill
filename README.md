@@ -62,7 +62,7 @@ You need to have Node.js and npm installed on your machine.
 
     Don't initialize it with a README, .gitignore, or license.
 
-2.    **Clone this repository to your local machine.** (if you haven't done so already)
+2.  **Clone this repository to your local machine.** (if youhaven't done so already)
 
     ```sh
     git clone https://github.com/Muzzu153/Al-RahmaHill.git

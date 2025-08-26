@@ -55,14 +55,13 @@ You need to have Node.js and npm installed on your machine.
 
 ### Installation & Setup
 
-1.  **Clone the repository:**
-    Create a new repository at github.com.(this is your repository)
+1.  **Create a new repository at github.com.(this is your repository)**
 
     Give it the same name as the this repository.
 
     Don't initialize it with a README, .gitignore, or license.
 
-2.  **Clone this repository to your local machine.** (if youhaven't done so already)
+2.  **Clone this repository to your local machine.** (if you haven't done so already)
 
     ```sh
     git clone https://github.com/Muzzu153/Al-RahmaHill.git
@@ -77,7 +76,7 @@ You need to have Node.js and npm installed on your machine.
 4.  **Give the local repository an 'origin' that points to your repository.**
 
     ```sh
-    git remote add origin https://github.com/your-account/Al-RahmaHill,git
+    git remote add origin https://github.com/your-account/Al-RahmaHill.git
     ```
 
 5. **Push the local repository to your repository on github.**

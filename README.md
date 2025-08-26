@@ -4,6 +4,8 @@ A full-stack web application designed to streamline the process of managing hosp
 
 **Live Demo:** [**https://alrahmahill.netlify.app/**](https://alrahmahill.netlify.app/)
 
+![AlRahmaHill pic](/frontend/src/assets/AlRahmaHill.png)
+
 ---
 
 ## ✨ Key Features
@@ -142,6 +144,4 @@ You need to have Node.js and npm installed on your machine.
 
 ## 📬 Contact
 
-Syed Muzaffer Ali - [Portfolio Website](https://your-portfolio-url.com) | [LinkedIn Profile](https://www.linkedin.com/in/your-linkedin-url/)
-
-Project Link: [https://github.com/your-username/your-repo-name](https://github.com/your-username/your-repo-name)
+Syed Muzaffer Ali - [Portfolio Website](https://muzaffer-portfolio.netlify.app/) | [LinkedIn Profile](https://www.linkedin.com/in/muzafferalisyed/)

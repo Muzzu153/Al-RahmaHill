@@ -4,7 +4,7 @@ A full-stack web application designed to streamline the process of managing hosp
 
 **Live Demo:** [**https://alrahmahill.netlify.app/**](https://alrahmahill.netlify.app/)
 
-![AlRahmaHill pic](/frontend/src/assets/AlRahmaHill.png)
+![AlRahmaHill pic](/frontend/src/assets/AlRahmaHill.png?raw=true)
 
 ---
 

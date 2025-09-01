@@ -1,4 +1,4 @@
-# Al Rahma - Hospital Management System
+# Al RahmaHill - Hospital Management System
 
 A full-stack web application designed to streamline the process of managing hospital appointments. This system provides a seamless experience for patients to book, manage, and track their medical appointments, while offering a robust dashboard for administrators to oversee hospital operations.
 

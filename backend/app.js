@@ -24,7 +24,7 @@ app.use(
       "http://localhost:5175",
       "https://al-rahma-hill.vercel.app",
       "https://alrahmahill.netlify.app",
-      "https://al-rahma-hill-fa46mrlsw-syed-muzaffer-alis-projects.vercel.app",
+      "https://admin-alrahmahill.netlify.app",
     ],
   })
 );
